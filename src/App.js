@@ -4,17 +4,16 @@ import { Input } from './components/Input';
 
 import style from './App.module.css';
 
-const name = () => 'ivan'
-
 const toggle = true
 
 function App() {
   return (
-    <Fragment>
-      <h2 className={style.header} >Hello Geekbrains</h2>
-      {toggle && <Input name={name()} />}
-      <Button name={name()} adsfsddf="asdfasdf" />
-    </Fragment>
+    <>
+      <h2>Hello Geekbrains</h2>
+      {toggle && <Input />}
+      <Button name={'geekbrains'} />
+      <Button name={'andrey'}  />
+    </>
   )
 }
 

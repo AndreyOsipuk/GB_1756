@@ -1,8 +1,13 @@
+import { useState } from 'react'
 import style from './Input.css'
 
 export const Input = (props) => {
-    console.log('input component', props)
+    const [name, setName] = useState('some name')
+
     return (
-        <input />
+        <>
+            <p>{name}</p>
+            <input onChange={ev => setName(ev.target.value)} />
+        </>
     )
 }

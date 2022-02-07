@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 
-const a = 3
-
-const b = `name ${a}`
-
 export class Button extends Component {
+  state = {
+    name: this.props.name
+  }
+
+  handleClick = () => {
+      this.setState({ name: "germany" })
+  }
+
   render() {
     return (
       <>
-        <h3 style={{ fontSize: a > 2 ? "28px" : "10px" }}>My name is {this.props.name}</h3>
-        <button>Button</button>
+        <h3>My name is {this.state.name}</h3>
+        <button onClick={this.handleClick}>Button</button>
       </>
     )
   }
