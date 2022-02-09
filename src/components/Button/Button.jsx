@@ -1,7 +1,11 @@
 import React from 'react';
 
 export class Button extends React.Component {
+  handleClick = () => {
+    this.props.click();
+  };
+
   render() {
-    return <button>Click me</button>;
+    return <button onClick={this.handleClick}>button</button>;
   }
 }
