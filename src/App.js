@@ -2,7 +2,7 @@ import React, { Fragment } from 'react'
 import { Button } from './components/Button/Button';
 import { Input } from './components/Input';
 
-import style from './App.module.css';
+// import style from './App.module.css';
 
 const toggle = true
 
