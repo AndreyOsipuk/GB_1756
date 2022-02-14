@@ -28,7 +28,7 @@ module.exports = {
     ],
     'react/prop-types': 0,
     'linebreak-style': ['error', 'unix'],
-    quotes: ['error', 'single'],
-    semi: ['error', 'always'],
+    // quotes: ['error', 'single'],
+    // semi: ['error', 'always'],
   },
 };
