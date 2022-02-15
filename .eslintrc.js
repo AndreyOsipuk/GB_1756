@@ -6,9 +6,11 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
+    // 'plugin:react-hooks/recommended',
     'plugin:storybook/recommended',
   ],
   parserOptions: {
@@ -28,7 +30,15 @@ module.exports = {
     ],
     'react/prop-types': 0,
     'linebreak-style': ['error', 'unix'],
-    // quotes: ['error', 'single'],
-    // semi: ['error', 'always'],
+    quotes: ['warn', 'single'],
+    semi: ['warn', 'always'],
   },
+  overrides: [
+    {
+      files: ['webpack.config.js'],
+      rules: {
+        '@typescript-eslint/no-var-requires': ['off'],
+      },
+    },
+  ],
 };

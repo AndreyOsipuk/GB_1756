@@ -3,12 +3,12 @@ import { Input, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 
 interface Message {
-  text: string,
-  author: string
+  text: string;
+  author: string;
 }
 
 interface FormProps {
-  addMessage: (message: Message) => void
+  addMessage: (message: Message) => void;
 }
 
 export const Form: FC<FormProps> = ({ addMessage }) => {
@@ -25,12 +25,14 @@ export const Form: FC<FormProps> = ({ addMessage }) => {
 
   return (
     <form onSubmit={handleText}>
-      <Input value={text} onChange={ev => setText(ev.target.value)} />
-      <Button variant="contained" type="submit">Send</Button>
+      <Input value={text} onChange={(ev) => setText(ev.target.value)} />
+      <Button variant="contained" type="submit">
+        Send
+      </Button>
     </form>
   );
 };
 
 Form.propTypes = {
-  addMessage: PropTypes.any
+  addMessage: PropTypes.any,
 };
