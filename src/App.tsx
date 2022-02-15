@@ -24,7 +24,7 @@ export const App: FC = () => {
     if (messages.length && messages[messages.length - 1].author === 'User') {
       const timeout = setTimeout(
         () =>
-          addMessage({
+          handleSendMessage({
             text: 'Im BOT',
             author: 'BOT',
           }),
@@ -37,10 +37,10 @@ export const App: FC = () => {
     }
   }, [messages]);
 
-  const addMessage = useCallback(
+  const handleSendMessage = useCallback(
     ({ text, author }: { text: string; author: string }) => {
-      setMessages([
-        ...messages,
+      setMessages((prevMessages) => [
+        ...prevMessages,
         {
           id: nanoid(),
           author,
@@ -55,7 +55,7 @@ export const App: FC = () => {
     <>
       <h1>Welcome to react</h1>
       <MessageList messages={messages} />
-      <Form addMessage={addMessage} />
+      <Form addMessage={handleSendMessage} />
     </>
   );
 };
