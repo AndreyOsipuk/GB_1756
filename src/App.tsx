@@ -21,18 +21,18 @@ import { NavBar } from './components/NavBar/NavBar';
 export const App: FC = () => {
   return (
     <Suspense fallback={<div>Загрузка...</div>}>
-      <HashRouter>
+      <BrowserRouter>
         <NavBar />
         <Switch>
-          <Route exact path='/' component={Main} />
-          <Route exact path='/chats'>
-            <Redirect to='/chats/1' />
+          <Route exact path="/" component={Main} />
+          <Route exact path="/chats">
+            <Redirect to="/chats/1" />
           </Route>
-          <Route path='/chats/:chatId' component={Chats} />
-          <Route exact path='/about' component={About} />
-          <Route path='*' component={NotFound} />
+          <Route path="/chats/:chatId" component={Chats} />
+          <Route exact path="/about" component={About} />
+          <Route path="*" component={NotFound} />
         </Switch>
-      </HashRouter>
+      </BrowserRouter>
     </Suspense>
   );
 };

@@ -8,7 +8,7 @@ import { Form } from './Form';
 
 describe('From', () => {
   test('renders From component', () => {
-    render(<Form addMessage={()=> null}/>);
+    render(<Form addMessage={() => null} />);
 
     expect(screen.getByText('Send')).toBeInTheDocument();
   });

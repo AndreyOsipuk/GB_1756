@@ -53,7 +53,7 @@ export const Chats: FC = (props) => {
   const [messages, setMessages] = useState<any>(defaultMessages);
   const history = useHistory();
   const { chatId } = useParams();
-console.log('props', props)
+
   if (chats.filter((chat) => chat.id === chatId).length === 0) {
     history.push('/');
   }
