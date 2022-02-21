@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { Form } from '../components/Form/Form';
 import { MessageList } from '../components/MessageList/MessageList';
 import { nanoid } from 'nanoid';
-import { Link, useParams, Redirect, useHistory } from 'react-router-dom';
+import { Link, useParams, Redirect } from 'react-router-dom';
 
 export interface Message {
   id: string;
@@ -10,7 +10,11 @@ export interface Message {
   author: string;
 }
 
-const defaultMessages: any = {
+export interface Messages {
+  [key: string]: Message[];
+}
+
+const defaultMessages: Messages = {
   chat1: [
     {
       id: '1',
@@ -49,35 +53,9 @@ const chats = [
   },
 ];
 
-export const Chats: FC = (props) => {
-  const [messages, setMessages] = useState<any>(defaultMessages);
-  const history = useHistory();
-  const { chatId } = useParams();
-
-  if (chats.filter((chat) => chat.id === chatId).length === 0) {
-    history.push('/');
-  }
-
-  useEffect(() => {
-    if (
-      messages[`chat${chatId}`].length &&
-      messages[`chat${chatId}`][messages[`chat${chatId}`].length - 1].author ===
-        'User'
-    ) {
-      const timeout = setTimeout(
-        () =>
-          handleSendMessage({
-            text: 'Im BOT',
-            author: 'BOT',
-          }),
-        1000
-      );
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [messages]);
+export const Chats: FC = () => {
+  const [messages, setMessages] = useState(defaultMessages);
+  const { chatId } = useParams<{ chatId?: string }>();
 
   const handleSendMessage = useCallback(
     ({ text, author }: { text: string; author: string }) => {
@@ -97,6 +75,31 @@ export const Chats: FC = (props) => {
     },
     [chatId]
   );
+
+  useEffect(() => {
+    if (
+      messages[`chat${chatId}`]?.length &&
+      messages[`chat${chatId}`][messages[`chat${chatId}`].length - 1].author ===
+        'User'
+    ) {
+      const timeout = setTimeout(
+        () =>
+          handleSendMessage({
+            text: 'Im BOT',
+            author: 'BOT',
+          }),
+        1000
+      );
+
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+  }, [messages, chatId, handleSendMessage]);
+
+  if (!messages[`chat${chatId}`]) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <>

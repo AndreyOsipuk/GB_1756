@@ -1,19 +1,13 @@
 import React, { FC, Suspense } from 'react';
-import {
-  BrowserRouter,
-  Route,
-  Switch,
-  HashRouter,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Main } from './pages/Main';
 
-const Chats = React.lazy(() =>
-  import('./pages/Chats').then((module) => ({
-    default: module.Chats,
-  }))
-);
-
+// const Chats = React.lazy(() =>
+//   import('./pages/Chats').then((module) => ({
+//     default: module.Chats,
+//   }))
+// );
+import { Chats } from './pages/Chats';
 import { About } from './pages/About';
 import { NotFound } from './pages/NotFound';
 import { NavBar } from './components/NavBar/NavBar';

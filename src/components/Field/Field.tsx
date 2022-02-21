@@ -1,13 +1,17 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 
+interface Render {
+  value: string;
+  handleText: (ev: React.ChangeEvent<HTMLInputElement>) => void;
+}
 interface FieldProps {
-  render: any;
+  render: ({ value, handleText }: Render) => JSX.Element;
 }
 
-export const Field: FC<FieldProps> = ({ children, render }) => {
+export const Field: FC<FieldProps> = ({ render }) => {
   const [value, setValue] = useState('');
 
-  const handleText = (ev: any) => {
+  const handleText = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setValue(ev.target.value);
   };
 

@@ -14,9 +14,11 @@ module.exports = {
     filename: '[name].bundle.js',
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, './build'),
+    publicPath: '/',
   },
   devtool: 'eval-source-map',
   devServer: {
+    compress: false,
     historyApiFallback: true,
   },
   module: {

@@ -5,12 +5,14 @@ module.exports = {
     es6: true,
   },
   extends: [
+    'prettier',
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'plugin:react/recommended',
-    // 'plugin:react-hooks/recommended',
+    'prettier',
+    'plugin:react-hooks/recommended',
     'plugin:storybook/recommended',
   ],
   parserOptions: {
@@ -20,7 +22,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['react'],
+  plugins: ['react', 'prettier', 'react-hooks', 'jest'],
   rules: {
     'prettier/prettier': [
       'error',
@@ -30,8 +32,8 @@ module.exports = {
     ],
     'react/prop-types': 0,
     'linebreak-style': ['error', 'unix'],
-    // quotes: ['warn', 'single'],
-    // semi: ['warn', 'always'],
+    quotes: ['warn', 'single'],
+    semi: ['warn', 'always'],
   },
   overrides: [
     {

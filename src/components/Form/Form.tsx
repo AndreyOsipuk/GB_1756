@@ -1,6 +1,5 @@
 import React, { useState, FC } from 'react';
 import { Input, Button } from '@mui/material';
-import { Field } from '../Field/Field';
 interface Message {
   text: string;
   author: string;
