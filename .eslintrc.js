@@ -8,7 +8,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
+    // 'plugin:prettier/recommended',
     'plugin:react/recommended',
     // 'plugin:react-hooks/recommended',
     'plugin:storybook/recommended',
@@ -30,8 +30,8 @@ module.exports = {
     ],
     'react/prop-types': 0,
     'linebreak-style': ['error', 'unix'],
-    quotes: ['warn', 'single'],
-    semi: ['warn', 'always'],
+    // quotes: ['warn', 'single'],
+    // semi: ['warn', 'always'],
   },
   overrides: [
     {
