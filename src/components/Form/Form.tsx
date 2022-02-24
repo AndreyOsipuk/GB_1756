@@ -26,7 +26,7 @@ export const Form: FC<FormProps> = ({ addMessage }) => {
       <Input value={text} onChange={(ev) => setText(ev.target.value)} />
 
       <Button variant="contained" type="submit">
-        Send
+        Sendd
       </Button>
     </form>
   );

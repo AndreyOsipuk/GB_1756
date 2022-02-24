@@ -7,9 +7,12 @@ import { Form } from './Form';
  */
 
 describe('From', () => {
-  test('renders From component', () => {
+  it('renders From component', () => {
     render(<Form addMessage={() => null} />);
-
-    expect(screen.getByText('Send')).toBeInTheDocument();
+    expect(screen.getByText('Sendd')).toBeInTheDocument();
+  });
+  it('test snapshot', () => {
+    const { asFragment } = render(<Form addMessage={() => null} />);
+    expect(asFragment()).toMatchSnapshot();
   });
 });
