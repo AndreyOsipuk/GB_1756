@@ -2,9 +2,6 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { Form } from './Form';
-/**
- * @jest-environment jsdom
- */
 
 describe('From', () => {
   it('renders From component', () => {

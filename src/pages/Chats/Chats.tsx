@@ -1,8 +1,12 @@
 import React, { FC, useCallback, useEffect, useState } from 'react';
-import { Form } from '../components/Form/Form';
-import { MessageList } from '../components/MessageList/MessageList';
+import { Form } from '../../components/Form/Form';
+import { MessageList } from '../../components/MessageList/MessageList';
 import { nanoid } from 'nanoid';
 import { Link, useParams, Redirect } from 'react-router-dom';
+// import { WithExtraInfo } from '../HOC/WithExtraInfo';
+import { WithClasses } from '../../HOC/WithClasses';
+
+import style from './Chats.module.css';
 
 export interface Message {
   id: string;
@@ -56,6 +60,8 @@ const chats = [
 export const Chats: FC = () => {
   const [messages, setMessages] = useState(defaultMessages);
   const { chatId } = useParams<{ chatId?: string }>();
+  // const MessageListWithExtra = WithExtraInfo(MessageList);
+  const MessageListWithClass = WithClasses(MessageList);
 
   const handleSendMessage = useCallback(
     ({ text, author }: { text: string; author: string }) => {
@@ -110,7 +116,15 @@ export const Chats: FC = () => {
           </li>
         ))}
       </ul>
-      <MessageList messages={messages[`chat${chatId}`]} />
+      {/* <MessageListWithExtra
+        messages={messages[`chat${chatId}`]}
+        extraInfo="test"
+      /> */}
+      <MessageListWithClass
+        messages={messages[`chat${chatId}`]}
+        classes={style.border}
+      />
+      {/* <MessageList messages={messages[`chat${chatId}`]} /> */}
       <Form addMessage={handleSendMessage} />
     </>
   );

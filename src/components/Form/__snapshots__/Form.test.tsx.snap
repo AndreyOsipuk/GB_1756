@@ -17,7 +17,7 @@ exports[`From test snapshot 1`] = `
       tabindex="0"
       type="submit"
     >
-      Sendd
+      Send
       <span
         class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
       />
