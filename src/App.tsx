@@ -19,12 +19,14 @@ export const App: FC = () => {
         <NavBar />
         <Switch>
           <Route exact path="/" component={Main} />
-          <Route exact path="/chats">
-            <Redirect to="/chats/1" />
+          <Route path="/chats">
+            <Route exact path="/chats">
+              <Redirect to="/chats/1" />
+            </Route>
+            <Route path="/chats/:chatId" component={Chats} />
           </Route>
-          <Route path="/chats/:chatId" component={Chats} />
           <Route exact path="/about" component={About} />
-          <Route path="*" component={NotFound} />
+          <Route path="*" component={NotFound} />ƒ
         </Switch>
       </BrowserRouter>
     </Suspense>

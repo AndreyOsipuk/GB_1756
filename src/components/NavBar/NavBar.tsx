@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { NavLink } from 'react-router-dom';
+import { withRouter } from 'react-router';
 
 const navigate = [
   {
@@ -26,6 +27,7 @@ export const NavBar: FC = () => {
         return (
           <li key={link.id}>
             <NavLink
+              exact
               to={link.to}
               style={(isActive) => ({
                 color: isActive ? 'green' : 'blue',
@@ -39,3 +41,5 @@ export const NavBar: FC = () => {
     </ul>
   );
 };
+
+export default withRouter(NavBar);
