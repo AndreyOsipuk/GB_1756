@@ -1,92 +1,61 @@
-import React, { FC, useCallback, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { Form } from '../../components/Form/Form';
 import { MessageList } from '../../components/MessageList/MessageList';
 import { nanoid } from 'nanoid';
-import { Link, useParams, Redirect } from 'react-router-dom';
+import { useParams, Redirect } from 'react-router-dom';
 // import { WithExtraInfo } from '../HOC/WithExtraInfo';
 import { WithClasses } from '../../HOC/WithClasses';
 
 import style from './Chats.module.css';
+import { ChatList } from '../../components/ChatList/ChatList';
+import { Messages } from '../../App';
 
-export interface Message {
-  id: string;
-  text: string;
-  author: string;
+interface ChatProps {
+  messages: Messages;
+  setMessages: (
+    message: Messages | ((prevState: Messages) => Messages)
+  ) => void;
+  addChat: (value: string) => void;
+  deleteChat: (id: string) => void;
 }
 
-export interface Messages {
-  [key: string]: Message[];
-}
-
-const defaultMessages: Messages = {
-  chat1: [
-    {
-      id: '1',
-      author: 'Geekbrains',
-      text: 'Welcome to the chat',
-    },
-  ],
-  chat2: [
-    {
-      id: '1',
-      author: 'Geekbrains',
-      text: 'Welcome to the chat',
-    },
-  ],
-  chat3: [
-    {
-      id: '1',
-      author: 'Geekbrains',
-      text: 'Welcome to the chat',
-    },
-  ],
-};
-
-const chats = [
-  {
-    id: '1',
-    name: 'чат 1',
-  },
-  {
-    id: '2',
-    name: 'чат 2',
-  },
-  {
-    id: '3',
-    name: 'чат 3',
-  },
-];
-
-export const Chats: FC = () => {
-  const [messages, setMessages] = useState(defaultMessages);
+export const Chats: FC<ChatProps> = ({
+  messages,
+  setMessages,
+  addChat,
+  deleteChat,
+}) => {
   const { chatId } = useParams<{ chatId?: string }>();
   // const MessageListWithExtra = WithExtraInfo(MessageList);
   const MessageListWithClass = WithClasses(MessageList);
+  // const FormWithClasses = WithClasses(Form);
 
   const handleSendMessage = useCallback(
     ({ text, author }: { text: string; author: string }) => {
-      setMessages((prevMessages) => {
-        return {
-          ...prevMessages,
-          [`chat${chatId}`]: [
-            ...prevMessages[`chat${chatId}`],
-            {
-              id: nanoid(),
-              author,
-              text,
-            },
-          ],
-        };
-      });
+      if (chatId) {
+        setMessages((prevMessages) => {
+          return {
+            ...prevMessages,
+            [chatId]: [
+              ...prevMessages[chatId],
+              {
+                id: nanoid(),
+                author,
+                text,
+              },
+            ],
+          };
+        });
+      }
     },
-    [chatId]
+    [chatId, setMessages]
   );
 
   useEffect(() => {
     if (
-      messages[`chat${chatId}`]?.length &&
-      messages[`chat${chatId}`][messages[`chat${chatId}`].length - 1].author ===
-        'User'
+      chatId &&
+      messages[chatId]?.length &&
+      messages[chatId][messages[chatId].length - 1].author === 'User'
     ) {
       const timeout = setTimeout(
         () =>
@@ -103,29 +72,25 @@ export const Chats: FC = () => {
     }
   }, [messages, chatId, handleSendMessage]);
 
-  if (!messages[`chat${chatId}`]) {
-    return <Redirect to="/" />;
+  if (chatId && !messages[chatId]) {
+    return <Redirect to="/chats" />;
   }
 
   return (
     <>
-      <ul>
-        {chats.map((chat) => (
-          <li key={chat.id}>
-            <Link to={`/chats/${chat.id}`}>{chat.name}</Link>
-          </li>
-        ))}
-      </ul>
+      <ChatList addChat={addChat} deleteChat={deleteChat} />
+
       {/* <MessageListWithExtra
         messages={messages[`chat${chatId}`]}
         extraInfo="test"
       /> */}
       <MessageListWithClass
-        messages={messages[`chat${chatId}`]}
+        messages={chatId ? messages[chatId] : []}
         classes={style.border}
       />
-      {/* <MessageList messages={messages[`chat${chatId}`]} /> */}
+      {/* <MessageList messages={chatId ? messages[chatId] : []} /> */}
       <Form addMessage={handleSendMessage} />
+      {/* <FormWithClasses addMessage={handleSendMessage} classes={style.border} /> */}
     </>
   );
 };

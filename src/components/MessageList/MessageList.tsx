@@ -1,13 +1,12 @@
 import React, { FC } from 'react';
-import { Message } from '../../pages/Chats/Chats';
+import { Message } from '../../App';
 
 interface MessageListProp {
   messages: Message[];
-  // extraInfo: string;
 }
 
 export const MessageList: FC<MessageListProp> = ({ messages }) => {
-  // console.log(extraInfo)
+  console.log('messages', messages);
   return (
     <ul>
       {messages.map((message) => (
