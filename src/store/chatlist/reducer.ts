@@ -1,4 +1,5 @@
 import { ADD_CHAT, DELETE_CHAT } from './actions';
+import { Reducer } from 'redux';
 
 export interface Chat {
   id: string;
@@ -7,15 +8,19 @@ export interface Chat {
 
 export interface ChatAction {
   type: string;
-  newChat?: Chat;
-  chatId?: string;
+  newChat: Chat;
+  chatId: string;
+}
+
+export interface ChatState {
+  chats: Chat[];
 }
 
 const initialChatList: Chat[] = [];
 
-export const chatListReducer = (
-  state: Chat[] = initialChatList,
-  action: ChatAction
+export const chatListReducer: Reducer<Chat[], ChatAction> = (
+  state = initialChatList,
+  action
 ) => {
   switch (action.type) {
     case ADD_CHAT: {

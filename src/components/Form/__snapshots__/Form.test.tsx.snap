@@ -23,5 +23,11 @@ exports[`From test snapshot 1`] = `
       />
     </button>
   </form>
+  <h1>
+    🌙
+  </h1>
+  <button>
+    Toggle dark mode
+  </button>
 </DocumentFragment>
 `;

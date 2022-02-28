@@ -10,7 +10,7 @@ export interface StoreState {
   chatlist: Chat[];
 }
 
-export const store: StoreState = createStore(
+export const store = createStore(
   combineReducers({
     profile: profileReducer,
     chatlist: chatListReducer,
