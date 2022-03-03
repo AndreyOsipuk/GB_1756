@@ -12,10 +12,6 @@ export interface ChatAction {
   chatId: string;
 }
 
-export interface ChatState {
-  chats: Chat[];
-}
-
 const initialChatList: Chat[] = [];
 
 export const chatListReducer: Reducer<Chat[], ChatAction> = (
