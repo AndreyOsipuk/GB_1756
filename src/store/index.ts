@@ -23,7 +23,7 @@ const persistConfig = {
   blacklist: ['profile'],
 };
 
-const rootReducer = combineReducers({
+const rootReducer = combineReducers<StoreState>({
   messages: messagesReducer,
   profile: profileReducer,
   chatlist: chatListReducer,
