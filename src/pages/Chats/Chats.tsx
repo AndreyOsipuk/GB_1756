@@ -1,76 +1,18 @@
-import React, { FC, useCallback, useEffect } from 'react';
+import React, { FC } from 'react';
 import { Form } from '../../components/Form/Form';
 import { MessageList } from '../../components/MessageList/MessageList';
-import { nanoid } from 'nanoid';
-import { useParams, Redirect } from 'react-router-dom';
-// import { WithExtraInfo } from '../HOC/WithExtraInfo';
+import { Redirect, useParams } from 'react-router-dom';
 import { WithClasses } from '../../HOC/WithClasses';
 
 import style from './Chats.module.css';
 import { ChatList } from '../../components/ChatList/ChatList';
-import { Messages } from '../../App';
+import { useSelector } from 'react-redux';
+import { selectMessages } from './../../store/messages/selectors';
 
-interface ChatProps {
-  messages: Messages;
-  setMessages: (
-    message: Messages | ((prevState: Messages) => Messages)
-  ) => void;
-  addChat: (value: string) => void;
-  deleteChat: (id: string) => void;
-}
-
-export const Chats: FC<ChatProps> = ({
-  messages,
-  setMessages,
-  addChat,
-  deleteChat,
-}) => {
+export const Chats: FC = () => {
   const { chatId } = useParams<{ chatId?: string }>();
-  // const MessageListWithExtra = WithExtraInfo(MessageList);
   const MessageListWithClass = WithClasses(MessageList);
-  // const FormWithClasses = WithClasses(Form);
-
-  const handleSendMessage = useCallback(
-    ({ text, author }: { text: string; author: string }) => {
-      if (chatId) {
-        setMessages((prevMessages) => {
-          return {
-            ...prevMessages,
-            [chatId]: [
-              ...prevMessages[chatId],
-              {
-                id: nanoid(),
-                author,
-                text,
-              },
-            ],
-          };
-        });
-      }
-    },
-    [chatId, setMessages]
-  );
-
-  useEffect(() => {
-    if (
-      chatId &&
-      messages[chatId]?.length &&
-      messages[chatId][messages[chatId].length - 1].author === 'User'
-    ) {
-      const timeout = setTimeout(
-        () =>
-          handleSendMessage({
-            text: 'Im BOT',
-            author: 'BOT',
-          }),
-        1000
-      );
-
-      return () => {
-        clearTimeout(timeout);
-      };
-    }
-  }, [messages, chatId, handleSendMessage]);
+  const messages = useSelector(selectMessages);
 
   if (chatId && !messages[chatId]) {
     return <Redirect to="/chats" />;
@@ -78,19 +20,12 @@ export const Chats: FC<ChatProps> = ({
 
   return (
     <>
-      <ChatList addChat={addChat} deleteChat={deleteChat} />
-
-      {/* <MessageListWithExtra
-        messages={messages[`chat${chatId}`]}
-        extraInfo="test"
-      /> */}
+      <ChatList />
       <MessageListWithClass
         messages={chatId ? messages[chatId] : []}
         classes={style.border}
       />
-      {/* <MessageList messages={chatId ? messages[chatId] : []} /> */}
-      <Form addMessage={handleSendMessage} />
-      {/* <FormWithClasses addMessage={handleSendMessage} classes={style.border} /> */}
+      <Form />
     </>
   );
 };

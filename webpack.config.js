@@ -1,10 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-module.exports = (env, argv) => {
-  const isProductionBuild = argv.mode === 'production';
+module.exports = () => {
+  // const isProductionBuild = argv.mode === 'production';
 
   return {
     entry: path.resolve(__dirname, './src/index.tsx'),
@@ -38,7 +38,7 @@ module.exports = (env, argv) => {
         {
           test: /\.css$/i,
           use: [
-            isProductionBuild ? MiniCssExtractPlugin.loader : 'style-loader',
+            'style-loader',
             {
               loader: 'css-loader',
               options: {

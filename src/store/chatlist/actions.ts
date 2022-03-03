@@ -1,5 +1,5 @@
+import { Chat } from './types';
 export const ADD_CHAT = 'CHATLIST::ADD_CHAT';
-import { Chat } from './reducer';
 export const DELETE_CHAT = 'CHATLIST::DELETE_CHAT';
 
 export const addChat = (newChat: Chat) => ({

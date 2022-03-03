@@ -5,11 +5,11 @@ import { Form } from './Form';
 
 describe('From', () => {
   it('renders From component', () => {
-    render(<Form addMessage={() => null} />);
+    render(<Form />);
     expect(screen.getByText('Send')).toBeInTheDocument();
   });
   it('test snapshot', () => {
-    const { asFragment } = render(<Form addMessage={() => null} />);
+    const { asFragment } = render(<Form />);
     expect(asFragment()).toMatchSnapshot();
   });
 });
