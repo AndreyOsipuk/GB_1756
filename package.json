@@ -13,7 +13,7 @@
     "loki:update": "npx loki update",
     "loki:test": "npx loki test",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
+    "deploy": "gh-pages -d build -b lesson-7",
     "test": "jest"
   },
   "keywords": [],
