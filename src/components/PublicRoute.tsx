@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Redirect, Route, RouteProps } from 'react-router';
 import { useSelector } from 'react-redux';
 import { StoreState } from '../store';
