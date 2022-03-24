@@ -9,12 +9,12 @@ import { ChatList } from '../../components/ChatList/ChatList';
 import { useSelector } from 'react-redux';
 import { selectMessages } from './../../store/messages/selectors';
 
-export const Chats: FC = () => {
+export const Chats: FC<any> = ({ msgs }) => {
   const { chatId } = useParams<{ chatId?: string }>();
   const MessageListWithClass = WithClasses(MessageList);
-  const messages = useSelector(selectMessages);
+  // const messages = useSelector(selectMessages);
 
-  if (chatId && !messages[chatId]) {
+  if (chatId && !msgs[chatId]) {
     return <Redirect to="/chats" />;
   }
 
@@ -22,7 +22,7 @@ export const Chats: FC = () => {
     <>
       <ChatList />
       <MessageListWithClass
-        messages={chatId ? messages[chatId] : []}
+        messages={chatId ? msgs[chatId] : []}
         classes={style.border}
       />
       <Form />

@@ -1,36 +1,59 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Chat } from '../../store/chatlist/types';
 import { nanoid } from 'nanoid';
-import { addChat, deleteChat } from './../../store/chatlist/actions';
+import {
+  addChat,
+  deleteChat,
+  initChatsFB,
+} from './../../store/chatlist/actions';
 import { createMessageChat } from '../../store/messages/actions';
 import { deleteMessageChat } from './../../store/messages/actions';
+import { onValue, set, remove } from 'firebase/database';
+import {
+  chatsRef,
+  getChatListById,
+  getMessagesRefId,
+} from './../../services/firebase';
 
 export const ChatList: FC = () => {
   const dispatch = useDispatch();
 
-  const [value, setValue] = useState('');
+  const [name, setName] = useState('');
+
   const chatList = useSelector((state: { chatlist: Chat[] }) => state.chatlist);
+
+  useEffect(() => {
+    dispatch(initChatsFB());
+  }, []);
 
   const handleAddChat = () => {
     const id = nanoid();
-    dispatch(addChat({ id, name: value }));
-    dispatch(createMessageChat(id));
-    setValue('');
+    set(getChatListById(id), {
+      id,
+      name,
+    });
+    set(getMessagesRefId(id), {
+      empty: true,
+    });
+    // dispatch(addChat({ id, name: value }));
+    // dispatch(createMessageChat(id));
+    setName('');
   };
 
   const handleDeleteChat = (chatId: string) => {
-    dispatch(deleteChat(chatId));
-    dispatch(deleteMessageChat(chatId));
+    remove(getChatListById(chatId));
+    // dispatch(deleteChat(chatId));
+    // dispatch(deleteMessageChat(chatId));
   };
 
   return (
     <>
       <input
         type="text"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
+        value={name}
+        onChange={(e) => setName(e.target.value)}
       />
       <button onClick={handleAddChat}>add chat</button>
       <ul>

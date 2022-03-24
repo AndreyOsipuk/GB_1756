@@ -4,6 +4,9 @@ import { useDispatch } from 'react-redux';
 import { addMessageWithThunk } from './../../store/messages/actions';
 import { useParams } from 'react-router-dom';
 import { AUTHORS } from '../../constants';
+import { set } from 'firebase/database';
+import { getMessagesListRefId } from './../../services/firebase';
+import { nanoid } from 'nanoid';
 
 export const Form: FC = () => {
   const dispatch = useDispatch();
@@ -13,13 +16,19 @@ export const Form: FC = () => {
   const handleSubmit = (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault();
     if (chatId) {
-      dispatch(
-        addMessageWithThunk({
-          chatId,
-          text,
-          author: AUTHORS.user,
-        })
-      );
+      const id = nanoid();
+      set(getMessagesListRefId(chatId, id), {
+        id,
+        text,
+        author: AUTHORS.user,
+      });
+      // dispatch(
+      //   addMessageWithThunk({
+      //     chatId,
+      //     text,
+      //     author: AUTHORS.user,
+      //   })
+      // );
     }
 
     setText('');
